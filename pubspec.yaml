@@ -1,0 +1,10 @@
+name: sonnet_root
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sonnet: ^0.1.0

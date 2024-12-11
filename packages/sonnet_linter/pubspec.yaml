@@ -1,0 +1,33 @@
+name: sonnet_linter
+version: 0.1.0
+description: Lints Flutter apps for strings that could be internationalized using Sonnet
+repository: https://github.com/Sonnet-International/sonnet
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  _fe_analyzer_shared:
+  analyzer:
+  analyzer_plugin:
+  collection:
+  custom_lint: 0.6.0
+  custom_lint_builder:
+  logging:
+  meta:
+  number_to_character:
+  path:
+  pubspec_parse:
+  sonnet: ^0.1.0
+  source_gen:
+  string_literal_finder:
+  string_literal_finder_annotations:
+  yaml:
+
+dev_dependencies:
+  coverage: ^1.0.0
+  mockito: ^5.0.0
+  mocktail: ^0.3.0
+  test: ^1.0.0
+  very_good_analysis:

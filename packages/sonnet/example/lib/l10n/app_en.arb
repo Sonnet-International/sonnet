@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World!",
+  "changeLocale": "Change Locale",
+  "increment": "Increment",
+  "sonnetDemo": "Sonnet Demo",
+  "foo": "Foo"
+}

@@ -1,0 +1,12 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    avoid_renaming_method_parameters: false
+    flutter_style_todos: false
+    always_use_package_imports: false
+    avoid_relative_lib_imports: false
+    prefer_asserts_with_message: false
+    parameter_assignments: false
+    unnecessary_library_directive: false

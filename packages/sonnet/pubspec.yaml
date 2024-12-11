@@ -1,0 +1,25 @@
+name: sonnet
+version: 0.1.0
+description: A Flutter package for i18n using Sonnet
+repository: https://github.com/Sonnet-International/sonnet
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter:
+
+# Add regular dependencies here.
+dependencies:
+  collection: ^1.18.0
+  flutter:
+    sdk: flutter
+  intl: ^0.18.1
+  intl_generator: ^0.4.1
+  meta: ^1.11.0
+  path: ^1.9.0
+  shared_preferences: ^2.2.3
+  yaml: ^3.1.2
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0
+  very_good_analysis:

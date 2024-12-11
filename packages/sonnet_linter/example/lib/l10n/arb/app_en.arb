@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "fooArgstatic": "foo {argstatic}",
+    "@fooArgstatic": {
+        "placeholders": {
+            "argstatic": {
+                "type": "int"
+            }
+        }
+    },
+    "jerry": "jerry",
+    "foo": "foo",
+    "bar": "bar",
+    "baz": "baz"
+}

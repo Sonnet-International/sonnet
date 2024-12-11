@@ -1,0 +1,119 @@
+{
+  "@@locale": "en_us",
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "colors": "{color, select, red{Red} green{Green} blue{Blue} other{Something else}}",
+  "@colors": {
+    "placeholders": {
+      "color": {
+        "example": "green"
+      }
+    }
+  },
+  "genderPossessive": "{sex, select, male{His} female{Her} other{Their}} birthday",
+  "@genderPossessive": {
+    "placeholders": {
+      "sex": {
+        "example": "female"
+      }
+    }
+  },
+  "newMessages": "You have {count, plural, zero{no new messages} one{a new message} other{{count} new messages}}",
+  "@newMessages": {
+    "placeholders": {
+      "count": {
+        "example": "one"
+      }
+    }
+  },
+  "all": "{vehicleType, select, sedan{Sedan} cabriolet{Solid roof cabriolet} truck{16 wheel truck} other{Other}}. {sex, select, male{His birthday} female{Her birthday} other{Their birthday}}\n{count, plural, zero{You have no new messages} one{You have 1 new message} other{You have {count} new messages}}\nYour balance is {amount} on {date}",
+  "@all": {
+    "description": "Vehicle type",
+    "placeholders": {
+      "vehicleType": {
+        "example": "sedan"
+      },
+      "sex": {
+        "example": "female"
+      },
+      "count": {
+        "example": "1"
+      },
+      "amount": {
+        "type": "double",
+        "format": "currency",
+        "example": "$1000.00",
+        "description": "Account balance",
+        "optionalParameters": {
+          "decimalDigits": 2,
+          "name": "USD",
+          "symbol": "$",
+          "customPattern": "¤#0.00"
+        }
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd",
+        "example": "11/10/2021",
+        "description": "Balance date"
+      }
+    }
+  },
+  "commonVehicleType": "{vehicleType, select, sedan{Sedan} cabriolet{Solid roof cabriolet} truck{16 wheel truck} other{Other}}",
+  "@commonVehicleType": {
+    "description": "Vehicle type",
+    "placeholders": {
+      "vehicleType": {}
+    }
+  },
+  "pageHomeBirthday": "{sex, select, male{His birthday} female{Her birthday} other{Their birthday}}",
+  "@pageHomeBirthday": {
+    "description": "Birthday message on the Home screen",
+    "placeholders_order": ["sex"],
+    "placeholders": {
+      "sex": {}
+    }
+  },
+  "pageHomeInboxCount" : "{count, plural, zero{You have no new messages} one{You have 1 new message} other{You have {count} new messages}}",
+  "@pageHomeInboxCount" : {
+    "description" : "New messages count on the Home screen",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "balance" : "Your balance is {amount} on {date}",
+  "@balance" : {
+    "placeholders": {
+      "amount": {
+        "type": "double",
+        "format": "currency",
+        "example": "$1000.00",
+        "description": "Account balance",
+        "optionalParameters": {
+          "decimalDigits": 2,
+          "name": "USD",
+          "symbol": "$",
+          "customPattern": "¤#0.00"
+        }
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd",
+        "example": "11/10/2021",
+        "description": "Balance date"
+      }
+    }
+  },
+  "commonCustomDateFormat": "Custom date format: {date}",
+  "@commonCustomDateFormat": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "EEE, M/d/y",
+        "isCustomDateFormat": "true"
+      }
+    }
+  }
+}
