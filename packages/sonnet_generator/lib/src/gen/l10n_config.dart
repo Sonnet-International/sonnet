@@ -25,12 +25,29 @@ class L10nConfig {
       ? '.dart_tool/flutter_gen/gen_l10n'
       : outputDir ?? arbDir;
 
-  static Future<L10nConfig> getL10nConfig() async {
-    if (File('l10n.yaml').existsSync()) {
-      final l10nFile = File('l10n.yaml');
-      final l10nFileString = await l10nFile.readAsString();
+  String get packageImport {
+    return syntheticPackage
+        ? 'package:flutter_gen/gen_l10n/sonnet_localizations.dart'
+        : 'package:$_currentPackageName/$finalOutputDir/sonnet_localizations.dart';
+  }
 
-      final yamlGenConfig = yaml.loadYamlDocument(l10nFileString, recover: true)
+  String get _currentPackageName {
+    final pubspec = File('pubspec.yaml');
+    final pubspecString = pubspec.readAsStringSync();
+    final pubspecYaml =
+        yaml.loadYamlDocument(pubspecString).contents.value as yaml.YamlMap;
+    return pubspecYaml['name'] as String;
+  }
+
+  String get templateFilePath => '$finalOutputDir/$templateArbFile';
+
+  static L10nConfig getL10nConfig([File? file]) {
+    if ((file ?? File('l10n.yaml')).existsSync()) {
+      final l10nFile = File('l10n.yaml');
+      final l10nFileString = l10nFile.readAsStringSync();
+
+      final yamlGenConfig = yaml
+          .loadYamlDocument(l10nFileString, recover: true)
           .contents
           .value as yaml.YamlMap;
       final arbDir = yamlGenConfig['arb-dir'] as String? ?? 'lib/l10n';
@@ -59,5 +76,21 @@ class L10nConfig {
     } else {
       throw Exception('No l10n.yaml file');
     }
+  }
+
+  static const _defaultL10n = '''
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+''';
+
+  static L10nConfig findOrCreateL10nFile(File l10nFile) {
+    if (!l10nFile.existsSync() || l10nFile.readAsStringSync().isEmpty) {
+      l10nFile
+        ..createSync(recursive: true)
+        ..writeAsStringSync(_defaultL10n);
+    }
+
+    return L10nConfig.getL10nConfig(l10nFile);
   }
 }

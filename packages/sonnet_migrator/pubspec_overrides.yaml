@@ -1,5 +1,7 @@
 dependency_overrides:
   sonnet:
     path: ../sonnet
+  sonnet_generator:
+    path: ../sonnet_generator
   sonnet_linter:
     path: ../sonnet_linter

@@ -2034,6 +2034,61 @@ enum Item {
           },
         );
       });
+
+      test('inner interpolation', () async {
+        await testProject.writeDartFile(
+          widgetTextBuilder(
+            r'''I have purchased ${item.name} for ${item.cost + item.price(tax)}''',
+            innerBuildSetup: 'double tax = 0.1; Item item;',
+            outOfClassSetup: '''
+enum Item { 
+  cheese('cheddar');
+  
+  Item(this.name);
+  
+  final String name;
+  
+  double get cost => 1.0;
+  
+  double price(double tax) => cost + tax;
+}
+''',
+          ),
+        );
+
+        final lints = await lint.testRun(
+          await getResolvedUnit(file: testProject.file),
+          pubspec: testProject.pubspec,
+        );
+        expect(lints, hasLength(1), reason: lintDescriptions(lints).join('\n'));
+
+        final fixes = await getFixes(
+          await getResolvedUnit(file: testProject.file),
+          lints.first,
+        );
+        final (dartEdit, arbEdit) = fixes.edits;
+
+        expect(
+          dartEdit.singleReplacement,
+          '''context.sonnet.iHavePurchasedItemFor(item.name, (item.cost + item.price(tax)).toString())''',
+        );
+        expect(
+          arbEdit.singleReplacementArbMap,
+          {
+            'iHavePurchasedItemFor': 'I have purchased {item} for {cost}',
+            '@iHavePurchasedItemFor': {
+              'placeholders': {
+                'item': {
+                  'type': 'String',
+                },
+                'cost': {
+                  'type': 'String',
+                },
+              },
+            },
+          },
+        );
+      });
     });
   });
 }

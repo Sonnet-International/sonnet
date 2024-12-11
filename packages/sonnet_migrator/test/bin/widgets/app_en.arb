@@ -11,54 +11,46 @@
     }
   },
   "kTrue": "true",
-  "nullableStringNullablestring": "nullable string: {nullablestring}",
-  "@nullableStringNullablestring": {
+  "nullableStringNullableString": "nullable string: {nullableString}",
+  "@nullableStringNullableString": {
     "placeholders": {
-      "nullablestring": {
+      "nullableString": {
         "type": "String"
       }
     }
   },
-  "nullableStringWrappedNullablestring": "nullable string wrapped: {nullablestring}",
-  "@nullableStringWrappedNullablestring": {
+  "nullableStringWrappedNullableString": "nullable string wrapped: {nullableString}",
+  "@nullableStringWrappedNullableString": {
     "placeholders": {
-      "nullablestring": {
+      "nullableString": {
         "type": "String"
       }
     }
   },
-  "nullableStringPlusOtherOther": "nullable string plus other: {other}",
-  "@nullableStringPlusOtherOther": {
+  "nullableStringPlusOtherNullableString": "nullable string plus other: {nullableString}",
+  "@nullableStringPlusOtherNullableString": {
     "placeholders": {
-      "other": {
+      "nullableString": {
         "type": "String"
       }
     }
   },
   "other": "other",
-  "somelocalstring": "{somelocalstring}",
-  "@somelocalstring": {
+  "interpolatedArgStaticArgStatic1": "interpolated {argStatic} {argStatic2} 1",
+  "@interpolatedArgStaticArgStatic1": {
     "placeholders": {
-      "somelocalstring": {
-        "type": "String"
-      }
-    }
-  },
-  "interpolatedArgstaticArgstatic1": "interpolated {argstatic} {argstatic2} 1",
-  "@interpolatedArgstaticArgstatic1": {
-    "placeholders": {
-      "argstatic": {
+      "argStatic": {
         "type": "int"
       },
-      "argstatic2": {
+      "argStatic2": {
         "type": "int"
       }
     }
   },
-  "interpolatedArgstatic1": "interpolated {argstatic} 1",
-  "@interpolatedArgstatic1": {
+  "interpolatedArgStatic1": "interpolated {argStatic} 1",
+  "@interpolatedArgStatic1": {
     "placeholders": {
-      "argstatic": {
+      "argStatic": {
         "type": "int"
       }
     }
@@ -68,70 +60,56 @@
   "kContinue2": "CONTINUE",
   "foo": "foo",
   "kContinue3": "continue!",
-  "three4": "{three} 4",
-  "@three4": {
-    "placeholders": {
-      "three": {
-        "type": "int"
-      }
-    }
-  },
   "tisRaw": "tis $ raw",
   "tisRaw2": "tis \\$ raw",
-  "rawRawRaw": "{raw} {raw} {raw3}",
-  "@rawRawRaw": {
-    "placeholders": {
-      "raw": {
-        "type": "String"
-      },
-      "raw2": {
-        "type": "String"
-      },
-      "raw3": {
-        "type": "String"
-      }
-    }
-  },
   "tripleSingleQuotes": "triple single-quotes",
   "tripleDoubleQuotes": "triple double-quotes",
-  "multilineStringInterpolatedstatic1": "        Multiline String\n        {interpolatedstatic}\n        \n        1. \n        ",
-  "@multilineStringInterpolatedstatic1": {
+  "multilineStringInterpolatedStatic1": "        Multiline String\n        {interpolatedStatic}\n        \n        1. \n        ",
+  "@multilineStringInterpolatedStatic1": {
     "placeholders": {
-      "interpolatedstatic": {
+      "interpolatedStatic": {
         "type": "String"
       }
     }
   },
-  "interpolationInterpolation": "{interpolation} interpolation",
-  "@interpolationInterpolation": {
+  "outer11TrueFalseFooBar": "{outer11TrueFalseFooBarInnerInterpolation} interpolation",
+  "@outer11TrueFalseFooBar": {
     "placeholders": {
-      "interpolation": {
+      "outer11TrueFalseFooBarInnerInterpolation": {
         "type": "String"
       }
     }
   },
-  "outerInnerInterpolation": "outer {inner} interpolation",
-  "@outerInnerInterpolation": {
+  "outer1Interpolation": "outer {one} interpolation",
+  "@outer1Interpolation": {
     "placeholders": {
-      "inner": {
+      "one": {
+        "type": "String"
+      }
+    }
+  },
+  "kFalse": "{kFalse}",
+  "@kFalse": {
+    "placeholders": {
+      "kFalse": {
         "type": "String"
       }
     }
   },
   "bar": "bar",
   "inner": "inner",
-  "otherLastOfAll": "{other} last of all",
-  "@otherLastOfAll": {
+  "interpolatedManyArgsarg1Argument1Arg2": "{interpolatedManyArgsarg1Argument1Arg2Argument2Arg3Argument1Other} last of all",
+  "@interpolatedManyArgsarg1Argument1Arg2": {
     "placeholders": {
-      "other": {
+      "interpolatedManyArgsarg1Argument1Arg2Argument2Arg3Argument1Other": {
         "type": "String"
       }
     }
   },
-  "interpolated1Other": "interpolated {one} other",
-  "@interpolated1Other": {
+  "interpolatedManyArgsOther": "interpolated {manyArgs} other",
+  "@interpolatedManyArgsOther": {
     "placeholders": {
-      "one": {
+      "manyArgs": {
         "type": "String"
       }
     }

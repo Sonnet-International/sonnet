@@ -1,5 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
@@ -8,6 +10,7 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dar
 import 'package:analyzer_plugin/utilities/change_builder/conflicting_edit_exception.dart';
 import 'package:collection/collection.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:sonnet_generator/sonnet_generator.dart';
 import 'package:sonnet_linter/src/forks/change_reporter.dart';
 import 'package:sonnet_linter/src/models/arb_change.dart';
 import 'package:sonnet_linter/src/models/diagnostic.dart';
@@ -65,8 +68,6 @@ class SourceReplacer {
     return diagnostic.toMap(arbChange);
   }
 
-  static const packageImport = 'package:sonnet/sonnet.dart';
-
   static Future<void> addImport({
     required ChangeBuilder changeBuilder,
     required List<ImportDirective> imports,
@@ -74,6 +75,9 @@ class SourceReplacer {
   }) async {
     try {
       return changeBuilder.addDartFileEdit((builder) {
+        final l10nConfig = L10nConfig.findOrCreateL10nFile(File('l10n.yaml'));
+        final packageImport = l10nConfig.packageImport;
+
         // insert before first import that is alphabetically later than the
         // import 'package:sonnet/sonnet.dart';
         final sortedImports = imports.sortedBy(

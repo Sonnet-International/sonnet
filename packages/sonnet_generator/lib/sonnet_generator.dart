@@ -1,8 +1,5 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library;
+library sonnet_generator;
 
+export 'src/gen/generator.dart';
+export 'src/gen/l10n_config.dart';
 export 'src/sonnet_generator_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.

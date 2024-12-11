@@ -7,11 +7,11 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:sonnet_generator/sonnet_generator.dart';
 import 'package:sonnet_linter/src/fixes/testable_dart_fix.dart';
 import 'package:sonnet_linter/src/utilities/arb_file_reader.dart';
 import 'package:sonnet_linter/src/utilities/change_getter.dart';
 import 'package:sonnet_linter/src/utilities/process_found_string.dart';
-import 'package:sonnet_linter/src/utilities/process_runner.dart';
 import 'package:yaml/yaml.dart';
 
 class AddToArb extends DartFix with TestableDartFix {
@@ -66,7 +66,7 @@ class AddToArb extends DartFix with TestableDartFix {
       try {
         print('re-generating l10n');
 
-        await ProcessRunner.genL10n();
+        SonnetGenerator.generate();
       } catch (e) {
         print('error generating l10n: $e');
       }
@@ -86,16 +86,10 @@ class AddToArb extends DartFix with TestableDartFix {
 
     if (root == null) return;
 
-    final l10n = File('${root.path}/l10n.yaml');
+    final l10nFile = File('${Directory.current.path}/l10n.yaml');
+    final l10nConfig = L10nConfig.findOrCreateL10nFile(l10nFile);
 
-    if (!l10n.existsSync()) {
-      print(
-        'l10n.yaml file does not exist. Run `flutter gen-l10n` to generate it',
-      );
-      return;
-    }
-
-    final (arb, arbFile) = ArbFileReader.read(l10n);
+    final (arb, arbFile) = ArbFileReader.read(l10nConfig);
     final origNode = node.thisOrAncestorMatching((n) => n is CompilationUnit);
 
     if (origNode is! CompilationUnit) return;

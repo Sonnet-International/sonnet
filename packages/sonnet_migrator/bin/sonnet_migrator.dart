@@ -11,12 +11,12 @@ import 'dart:math';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/args.dart';
 import 'package:collection/collection.dart';
+import 'package:sonnet_generator/sonnet_generator.dart';
 import 'package:sonnet_linter/src/forks/change_reporter.dart';
 import 'package:sonnet_linter/src/models/arb_change.dart';
 import 'package:sonnet_linter/src/models/diagnostic.dart';
 import 'package:sonnet_linter/src/utilities/arb_file_reader.dart';
 import 'package:sonnet_linter/src/utilities/change_getter.dart';
-import 'package:sonnet_linter/src/utilities/process_runner.dart';
 import 'package:sonnet_linter/src/utilities/source_replacer.dart';
 import 'package:sonnet_migrator/src/get_diagnostics.dart';
 
@@ -57,11 +57,9 @@ Future<void> main(List<String> arguments) async {
   final directory = Directory(
     args['directory']?.toString() ?? Directory.current.path,
   );
-  final l10nFile = File('${Directory.current.path}/l10n.yaml');
 
-  if (!l10nFile.existsSync()) {
-    await ProcessRunner.genL10n();
-  }
+  final l10nFile = File('${Directory.current.path}/l10n.yaml');
+  final l10nConfig = L10nConfig.findOrCreateL10nFile(l10nFile);
 
   // validate arguments
   if (maxIterations == null) {
@@ -73,15 +71,10 @@ Future<void> main(List<String> arguments) async {
   } else if (!directory.existsSync()) {
     print('Invalid directory');
     exit(1);
-  } else if (!l10nFile.existsSync() || l10nFile.readAsStringSync().isEmpty) {
-    print('l10n.yaml file not available. Adding now...');
-    l10nFile
-      ..createSync(recursive: true)
-      ..writeAsStringSync(_defaultL10n);
   }
 
   // initialize migrator
-  final (arbContentsAsJson, arbFile) = ArbFileReader.read(l10nFile);
+  final (arbContentsAsJson, arbFile) = ArbFileReader.read(l10nConfig);
   final migrator = SonnetMigrator(
     initialArb: arbContentsAsJson,
     commitToFile: (ChangeBuilderImpl changeBuilder) async {
@@ -167,7 +160,7 @@ ${inputPrompt.generatedParamName}
     );
   }
 
-  await ProcessRunner.genL10n();
+  SonnetGenerator.generate();
 }
 
 class SonnetMigrator {
@@ -225,7 +218,7 @@ class SonnetMigrator {
           arb: arb,
           promptInput: promptInput,
           onExit: () async {
-            await ProcessRunner.genL10n();
+            SonnetGenerator.generate();
             exit(0);
           },
         );
@@ -263,9 +256,3 @@ class SonnetMigrator {
     return fileNeedsReAnalysis && changes > 0;
   }
 }
-
-const _defaultL10n = '''
-arb-dir: lib/l10n
-template-arb-file: app_en.arb
-output-localization-file: app_localizations.dart
-''';

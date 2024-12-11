@@ -8,22 +8,21 @@ import 'gen_l10n_types.dart';
 import 'l10n_config.dart';
 
 class SonnetGenerator {
-  static Future<void> generate() async {
+  static void generate() {
     final projectDirectory = Directory.current.path;
 
-    final l10nConfig = await L10nConfig.getL10nConfig();
+    final l10nConfig = L10nConfig.getL10nConfig();
     final genFile = File(
       path.join(
         projectDirectory,
         l10nConfig.finalOutputDir,
         'sonnet_localizations.dart',
       ),
-    );
-    await genFile.create(recursive: true);
+    )..createSync(recursive: true);
 
     final arbPath = path.join(l10nConfig.arbDir, l10nConfig.templateArbFile);
     final arbFile = File(arbPath);
-    final arbStr = await arbFile.readAsString();
+    final arbStr = arbFile.readAsStringSync();
     final arbJson = jsonDecode(arbStr) as Map<String, Object?>;
 
     final keys = getKeys(arbJson);
@@ -32,7 +31,7 @@ class SonnetGenerator {
       arbResource: arbJson,
       l10nConfig: l10nConfig,
     );
-    await genFile.writeAsString(content, mode: FileMode.writeOnly, flush: true);
+    genFile.writeAsStringSync(content, mode: FileMode.writeOnly, flush: true);
   }
 
   static List<String> getKeys(Map<String, Object?> arb) {
@@ -128,7 +127,7 @@ class _SonnetLocalizationsDelegate extends LocalizationsDelegate<${l10nConfig.ou
 }
 
 extension SonnetBuildContextExt on BuildContext {
-  AppLocalizations get sonnet => AppLocalizations.of(this)!;
+  SonnetLocalizations get sonnet => SonnetLocalizations.of(this)!;
 
   changeSonnetLocale(String locale) => Sonnet.changeLocale(locale);
 }

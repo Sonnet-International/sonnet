@@ -74,7 +74,7 @@ Diagnostic? processFoundString(
 extension on CompilationUnit {
   bool get hasSonnetImport {
     return directives.whereType<ImportDirective>().any((e) {
-      return e.uri.stringValue == 'package:sonnet/sonnet.dart';
+      return e.uri.stringValue?.endsWith('sonnet_localizations.dart') ?? false;
     });
   }
 }
